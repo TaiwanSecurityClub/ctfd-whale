@@ -6,6 +6,7 @@ from jinja2 import Template
 
 from CTFd.utils import get_config
 from CTFd.models import db, Challenges
+from CTFd.plugins.dynamic_challenges import DynamicChallenge
 
 
 class WhaleConfig(db.Model):
@@ -34,14 +35,11 @@ class WhaleRedirectTemplate(db.Model):
         return "<WhaleRedirectTemplate {0}>".format(self.key)
 
 
-class DynamicDockerChallenge(Challenges):
+class DynamicDockerChallenge(DynamicChallenge):
     __mapper_args__ = {"polymorphic_identity": "dynamic_docker"}
-    id = db.Column(None, db.ForeignKey("challenges.id",
+    id = db.Column(None, db.ForeignKey("dynamic_challenge.id",
                                        ondelete="CASCADE"), primary_key=True)
 
-    initial = db.Column(db.Integer, default=0)
-    minimum = db.Column(db.Integer, default=0)
-    decay = db.Column(db.Integer, default=0)
     memory_limit = db.Column(db.Text, default="128m")
     cpu_limit = db.Column(db.Float, default=0.5)
     dynamic_score = db.Column(db.Integer, default=0)
@@ -52,7 +50,6 @@ class DynamicDockerChallenge(Challenges):
 
     def __init__(self, *args, **kwargs):
         super(DynamicDockerChallenge, self).__init__(**kwargs)
-        self.initial = kwargs["value"]
 
 
 class WhaleContainer(db.Model):
