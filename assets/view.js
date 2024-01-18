@@ -52,10 +52,9 @@ function loadInfo() {
             window.t = undefined;
         }
         if (response.success) response = response.data;
-        else CTFd.ui.ezq.ezAlert({
+        else CTFd._functions.events.eventAlert({
             title: "Fail",
-            body: response.message,
-            button: "OK"
+            html: response.message,
         });
         if (response.remaining_time === undefined) {
             $('#whale-panel').html('<div class="card" style="width: 100%;">' +
@@ -139,18 +138,16 @@ CTFd._internal.challenge.destroy = function () {
     }).then(function (response) {
         if (response.success) {
             loadInfo();
-            CTFd.ui.ezq.ezAlert({
+            CTFd._functions.events.eventAlert({
                 title: "Success",
-                body: "Your instance has been destroyed!",
-                button: "OK"
+                html: "Your instance has been destroyed!",
             });
         } else {
             $('#whale-button-destroy')[0].innerHTML = "Destroy this instance";
             $('#whale-button-destroy')[0].disabled = false;
-            CTFd.ui.ezq.ezAlert({
+            CTFd._functions.events.eventAlert({
                 title: "Fail",
-                body: response.message,
-                button: "OK"
+                html: response.message,
             });
         }
     });
@@ -187,18 +184,16 @@ CTFd._internal.challenge.renew = function () {
     }).then(function (response) {
         if (response.success) {
             loadInfo();
-            CTFd.ui.ezq.ezAlert({
+            CTFd._functions.events.eventAlert({
                 title: "Success",
-                body: "Your instance has been renewed!",
-                button: "OK"
+                html: "Your instance has been renewed!",
             });
         } else {
             $('#whale-button-renew')[0].innerHTML = "Renew this instance";
             $('#whale-button-renew')[0].disabled = false;
-            CTFd.ui.ezq.ezAlert({
+            CTFd._functions.events.eventAlert({
                 title: "Fail",
-                body: response.message,
-                button: "OK"
+                html: response.message,
             });
         }
     });
@@ -235,18 +230,16 @@ CTFd._internal.challenge.boot = function () {
     }).then(function (response) {
         if (response.success) {
             loadInfo();
-            CTFd.ui.ezq.ezAlert({
+            CTFd._functions.events.eventAlert({
                 title: "Success",
-                body: "Your instance has been deployed!",
-                button: "OK"
+                html: "Your instance has been deployed!",
             });
         } else {
             $('#whale-button-boot')[0].innerHTML = "Launch an instance";
             $('#whale-button-boot')[0].disabled = false;
-            CTFd.ui.ezq.ezAlert({
+            CTFd._functions.events.eventAlert({
                 title: "Fail",
-                body: response.message,
-                button: "OK"
+                html: response.message,
             });
         }
     });
