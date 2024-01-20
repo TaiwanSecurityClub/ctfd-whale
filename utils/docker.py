@@ -90,7 +90,7 @@ class DockerUtils:
             driver='default', pool_configs=[ipam_pool])
         network_name = f'{container.user_id}-{container.uuid}'
         network = client.networks.create(
-            network_name, internal=True,
+            network_name, internal=False,
             ipam=ipam_config, attachable=True,
             labels={'prefix': range_prefix},
             driver="overlay", scope="swarm"
